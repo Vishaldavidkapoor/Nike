@@ -13,7 +13,7 @@ const CartListItem = ({ cartItem }) => {
         <Text style={styles.name}>{cartItem.product.name}</Text>
         <Text style={styles.size}>Size {cartItem.size}</Text>
 
-        <View style={styles.footer}>
+        <View style={styles.footer}> 
           <Feather
             onPress={increaseQuantity}
             name="minus-circle"
@@ -49,12 +49,12 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   name: {
-    margin:15,
+    margin: 15,
     fontWeight: "500",
     fontSize: 18,
   },
   size: {
-    margin:15,
+    margin: 15,
     fontSize: 16,
     color: "gray",
   },

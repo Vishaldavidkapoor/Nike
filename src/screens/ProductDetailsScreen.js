@@ -8,38 +8,43 @@ import {
   useWindowDimensions,
   Pressable,
 } from "react-native";
-import products from "../data/products";
+import { useSelector, useDispatch } from "react-redux";
+import { cartSlice } from "../store/CartSlice";
+import { useNavigation } from "@react-navigation/native";
 
 const ProductDetailsScreen = () => {
-  const product = products[0];
   const { width } = useWindowDimensions();
+  const product = useSelector((state) => state.products.selectedProduct);
+  const dispatch =useDispatch();
+  const navigation =useNavigation();
 
-  const addToCart = () =>{
-
-  }
+  const addToCart = () => {
+    dispatch(cartSlice.actions.addCartItem({product}));
+    navigation.navigate("Cart")
+  };
 
   return (
     <View>
-        <ScrollView>
-      <FlatList
-        data={product.images}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <Image
-            style={{ width: width, aspectRatio: 1 }}
-            source={{ uri: item.image }}
-          />
-        )}
-      />
-      <View style={{ padding: 20, paddingBottom:100, }}>
-        <Text style={styles.title}>{product.name}</Text>
-        <Text style={styles.price}>${product.price}</Text>
-        <Text style={styles.description}>{product.description}</Text>
-      </View>
+      <ScrollView>
+        <FlatList
+          data={product.images}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <Image
+              style={{ width: width, aspectRatio: 1 }}
+              source={{ uri: item }}
+            />
+          )}
+        />
+        <View style={{ padding: 20, paddingBottom: 100 }}>
+          <Text style={styles.title}>{product.name}</Text>
+          <Text style={styles.price}>${product.price}</Text>
+          <Text style={styles.description}>{product.description}</Text>
+        </View>
       </ScrollView>
-      
+
       <Pressable onPress={addToCart} style={styles.button}>
         <Text style={styles.buttonText}>Add to Cart</Text>
       </Pressable>
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
   price: {
     fontWeight: "500",
     fontSize: 16,
-    letterSpacing:2,
+    letterSpacing: 1,
   },
   description: {
     marginVertical: 10,
@@ -70,21 +75,21 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     fontWeight: "300",
   },
-  button:{
-    position:"absolute",
-    backgroundColor:"black",
-    bottom:10,
-    width:"90%",
-    alignItems:"center",
-    padding:20,
-    borderRadius:100,
-    alignSelf:"center"
+  button: {
+    position: "absolute",
+    backgroundColor: "black",
+    bottom: 10,
+    width: "90%",
+    alignItems: "center",
+    padding: 20,
+    borderRadius: 100,
+    alignSelf: "center",
   },
-  buttonText:{
-    color:"white",
-    fontWeight:"400",
-    fontSize:16
-  }
+  buttonText: {
+    color: "white",
+    fontWeight: "400",
+    fontSize: 16,
+  },
 });
 
 export default ProductDetailsScreen;
