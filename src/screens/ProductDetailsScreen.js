@@ -27,7 +27,7 @@ const ProductDetailsScreen = () => {
     <View>
       <ScrollView>
         <FlatList
-          data={product.images}
+          data={product?.images}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
@@ -39,9 +39,9 @@ const ProductDetailsScreen = () => {
           )}
         />
         <View style={{ padding: 20, paddingBottom: 100 }}>
-          <Text style={styles.title}>{product.name}</Text>
-          <Text style={styles.price}>${product.price}</Text>
-          <Text style={styles.description}>{product.description}</Text>
+          <Text style={styles.title}>{product?.name}</Text>
+          <Text style={styles.price}>${product?.price}</Text>
+          <Text style={styles.description}>{product?.description}</Text>
         </View>
       </ScrollView>
 
